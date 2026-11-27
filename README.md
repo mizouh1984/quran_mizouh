@@ -1,4 +1,4 @@
-# 📖 قارئ القرآن - mizouh المتميز (`v3.1.0`)
+# 📖 قارئ القرآن - mizouh المتميز 
 
 ![Version](https://img.shields.io/badge/Version-v3.1.0-2ea44f)
 ![Reciters](https://img.shields.io/badge/Reciters-31%20%7C%20Hafs%20%26%20Warsh-0366d6)
