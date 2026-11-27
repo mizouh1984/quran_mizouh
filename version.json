@@ -1,12 +1,13 @@
 {
   "plugin": "QuranMizouh",
   "name": "قارئ القرآن - mizouh المتميز",
-  "version": "3.2.0",
+  "version": "3.3.0",
   "release_date": "2026-11-27",
   "force_auto_update": false,
-  "changelog_ar": "الإصدار 3.2.0: الحفظ التلقائي لموضع الاستماع (القارئ والسورة والآية)، التحميل الصوتي والتفسير في الخلفية بزر REC/TEXT وقائمة MENU، حماية مساحة الفلاش (5 MB)، صلاحيات 755/644، إعادة تشغيل آمنة لجميع الصور، وتحميل ذري آمن بملفات .part.",
-  "changelog_en": "v3.2.0: Auto-Resume persistent listening position (reciter, surah, ayah), background offline audio & Tafsir download via REC/TEXT/MENU, 5 MB Flash Space Guard, strict 755/644 permissions, safe cross-image restart, atomic .part downloads, and unified GitHub badges.",
+  "changelog_ar": "الإصدار 3.3.0: أيقونة احترافية رسمية (plugin.png)، تسريع فائق للانتقال بين السور وإظهار المصحف بدون أي ثقل (تحميل غير متزامن + كاش في الذاكرة + خريطة صفحات فورية)، ودعم التصدير المباشر بصيغة IPK الجاهزة للمنتديات.",
+  "changelog_en": "v3.3.0: Official luxury plugin icon (plugin.png), ultra-fast non-blocking Surah switching & instant Mushaf page rendering (async I/O + RAM cache + built-in 114-Surah page map), and genuine opkg .ipk package generation for forums.",
   "package_url": "https://raw.githubusercontent.com/mizouh1984/quran_mizouh/main/enigma2-plugin-extensions-quranmizouh.tar.gz",
+  "ipk_url": "https://raw.githubusercontent.com/mizouh1984/quran_mizouh/main/enigma2-plugin-extensions-quranmizouh_3.3.0_all.ipk",
   "installer_url": "https://raw.githubusercontent.com/mizouh1984/quran_mizouh/main/install_quran_mizouh_allinone.sh",
   "reciters_feed_url": "https://raw.githubusercontent.com/mizouh1984/quran_mizouh/main/reciters_feed.json"
 }
