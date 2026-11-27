@@ -1,47 +1,106 @@
- 
+name: Auto Build IPK & Release Quran Mizouh
 
-<div align="center">
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'version.json'
+      - 'enigma2-plugin-extensions-quranmizouh.tar.gz'
+      - 'install_quran_mizouh_allinone.sh'
 
-# 📖 قارئ القرآن - mizouh المتميز
+permissions:
+  contents: write
 
-[![Total Downloads](https://img.shields.io/github/downloads/mizouh1984/quran_mizouh/total?style=for-the-badge&logo=github&label=TOTAL%20DOWNLOADS&color=0284c7)](https://github.com/mizouh1984/quran_mizouh/releases)
-[![Latest Version](https://img.shields.io/github/v/release/mizouh1984/quran_mizouh?style=for-the-badge&label=LATEST%20VERSION&color=16a34a)](https://github.com/mizouh1984/quran_mizouh/releases/latest)
-[![Latest Downloads](https://img.shields.io/github/downloads/mizouh1984/quran_mizouh/latest/total?style=for-the-badge&label=LATEST%20DOWNLOADS&color=ea580c)](https://github.com/mizouh1984/quran_mizouh/releases/latest)
+jobs:
+  build-and-release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
 
-[![Download TAR.GZ](https://img.shields.io/badge/DOWNLOAD-.TAR.GZ%20(ALL%20ENIGMA2)-0284c7?style=for-the-badge&logo=linux)](https://github.com/mizouh1984/quran_mizouh/releases/latest/download/enigma2-plugin-extensions-quranmizouh.tar.gz)
-[![Flash Space Guard](https://img.shields.io/badge/FLASH%20SPACE%20GUARD-ACTIVE-16a34a?style=for-the-badge)](#)
-[![Python](https://img.shields.io/badge/PYTHON-2.7%20%26%203.X-0284c7?style=for-the-badge&logo=python&logoColor=white)](#)
+      - name: Read version and changelog from version.json
+        id: meta
+        run: |
+          VERSION=$(jq -r '.version' version.json | sed 's/^v//')
+          TAG="v${VERSION}"
+          CHANGELOG_AR=$(jq -r '.changelog_ar // ""' version.json)
+          CHANGELOG_EN=$(jq -r '.changelog_en // ""' version.json)
+          IPK_NAME="enigma2-plugin-extensions-quranmizouh_${VERSION}_all.ipk"
 
-</div>
+          echo "tag=${TAG}" >> "$GITHUB_OUTPUT"
+          echo "version=${VERSION}" >> "$GITHUB_OUTPUT"
+          echo "ipk_name=${IPK_NAME}" >> "$GITHUB_OUTPUT"
 
-![Reciters](https://img.shields.io/badge/Reciters-31%20%7C%20Hafs%20%26%20Warsh-0366d6)
-[![GitHub last commit](https://img.shields.io/github/last-commit/mizouh1984/quran_mizouh?label=Updated&color=informational)](https://github.com/mizouh1984/quran_mizouh/commits/main)
-![Enigma2](https://img.shields.io/badge/Enigma2-Plugin-blueviolet)
+          {
+            echo "body<<EOF"
+            echo "### 📖 قارئ القرآن - mizouh المتميز (${TAG})"
+            echo ""
+            if [ -n "$CHANGELOG_AR" ]; then
+              echo "**التحديثات (العربية):**"
+              echo "${CHANGELOG_AR}"
+              echo ""
+            fi
+            if [ -n "$CHANGELOG_EN" ]; then
+              echo "**What's New (English):**"
+              echo "${CHANGELOG_EN}"
+              echo ""
+            fi
+            echo "---"
+            echo "#### ⚡ أمر التثبيت السريع (Telnet / SSH):"
+            echo '```sh'
+            echo 'wget -q --no-check-certificate "[https://raw.githubusercontent.com/mizouh1984/quran_mizouh/main/install_quran_mizouh_allinone.sh](https://raw.githubusercontent.com/mizouh1984/quran_mizouh/main/install_quran_mizouh_allinone.sh)" -O - | /bin/sh'
+            echo '```'
+            echo "EOF"
+          } >> "$GITHUB_OUTPUT"
 
-بلوجن احترافي لتلاوة القرآن الكريم وتصفح المصحف الشريف على أجهزة **Enigma2** مع دعم **التحديث التلقائي الجماعي** وتحديث قائمة القراء عن بُعد عبر GitHub.
+      - name: Build .ipk package automatically
+        run: |
+          VERSION="${{ steps.meta.outputs.version }}"
+          IPK_FILE="${{ steps.meta.outputs.ipk_name }}"
+          mkdir -p build_ipk/CONTROL build_ipk/data
 
----
+          # Extract plugin files from tar.gz into package data folder
+          tar -xzf enigma2-plugin-extensions-quranmizouh.tar.gz -C build_ipk/data
+          find build_ipk/data -type d -exec chmod 755 {} \;
+          find build_ipk/data -type f -exec chmod 644 {} \;
 
-## ✨ أبرز المميزات
+          # Create standard Enigma2 IPK control file
+          cat << EOF > build_ipk/CONTROL/control
+          Package: enigma2-plugin-extensions-quranmizouh
+          Version: ${VERSION}
+          Section: misc
+          Priority: optional
+          Architecture: all
+          Maintainer: mizouh1984
+          Description: Quran Reader - mizouh Al-Mutamayiz for Enigma2
+          EOF
 
-* **تلاوة متصلة لـ 31 قارئاً:** روايتا **حفص عن عاصم** (بما فيهم الشيخ أحمد بن علي العجمي) و**ورش عن نافع**.
-* **المصحف الشريف (604 صفحة):** عرض صفحات المصحف بدقة واضحة بدون تظليل مع تقليب تلقائي متزامن مع التلاوة.
-* **وضع الاستماع الصوتي فقط:** إظهار أو إخفاء المصحف بالزر الأصفر.
-* **التفسير والبحث والتحميل:** التفسير الميسر، الجلالين، البغوي، الترجمات (الإنجليزية والفرنسية)، البحث المتقدم، والتحميل للاستماع بدون إنترنت.
-* **تحديث تلقائي عن بُعد:** إشعار وتحميل التحديثات الجديدة من GitHub مباشرة عند فتح البلوجن.
+          # Create postinst script for clean permissions
+          cat << 'EOF' > build_ipk/CONTROL/postinst
+          #!/bin/sh
+          chmod -R 755 /usr/lib/enigma2/python/Plugins/Extensions/QuranMizouh 2>/dev/null || true
+          exit 0
+          EOF
+          chmod 755 build_ipk/CONTROL/postinst
 
----
+          # Assemble standard ar-based .ipk archive
+          echo "2.0" > build_ipk/debian-binary
+          tar --numeric-owner --owner=0 --group=0 -czf build_ipk/control.tar.gz -C build_ipk/CONTROL .
+          tar --numeric-owner --owner=0 --group=0 -czf build_ipk/data.tar.gz -C build_ipk/data .
+          (cd build_ipk && ar -r "../${IPK_FILE}" debian-binary control.tar.gz data.tar.gz)
+          cp "${IPK_FILE}" "enigma2-plugin-extensions-quranmizouh.ipk"
 
-## 🖥️ الأنظمة المدعومة
-
-متوافق مع صور Enigma2 الشائعة على معالجات ARM وMIPS (مثل Vu+ وDreambox وNovaler وغيرها):
-* OpenATV / OpenPLi / OpenBH / EGAMI / Pure2 / VTi
-
----
-
-## ⚡ التثبيت السريع بسطر واحد (Telnet / SSH)
-
-نفّذ الأمر التالي مباشرة عبر Telnet أو SSH على الرسيفر:
-
-```sh
-wget -q --no-check-certificate "[https://raw.githubusercontent.com/mizouh1984/quran_mizouh/main/install_quran_mizouh_allinone.sh](https://raw.githubusercontent.com/mizouh1984/quran_mizouh/main/install_quran_mizouh_allinone.sh)" -O - | /bin/sh
+      - name: Create or Update GitHub Release with .ipk & .tar.gz
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ steps.meta.outputs.tag }}
+          name: "قارئ القرآن - mizouh المتميز ${{ steps.meta.outputs.tag }}"
+          body: ${{ steps.meta.outputs.body }}
+          draft: false
+          prerelease: false
+          files: |
+            ${{ steps.meta.outputs.ipk_name }}
+            enigma2-plugin-extensions-quranmizouh.ipk
+            enigma2-plugin-extensions-quranmizouh.tar.gz
+            install_quran_mizouh_allinone.sh
