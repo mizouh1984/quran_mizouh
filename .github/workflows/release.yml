@@ -1,0 +1,74 @@
+name: Auto Release Quran Mizouh
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'version.json'
+      - 'enigma2-plugin-extensions-quranmizouh.tar.gz'
+
+permissions:
+  contents: write
+
+jobs:
+  create-release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Read version and changelog from version.json
+        id: meta
+        run: |
+          VERSION=$(jq -r '.version' version.json | sed 's/^v//')
+          TAG="v${VERSION}"
+          CHANGELOG_AR=$(jq -r '.changelog_ar // ""' version.json)
+          CHANGELOG_EN=$(jq -r '.changelog_en // ""' version.json)
+
+          echo "tag=${TAG}" >> "$GITHUB_OUTPUT"
+          echo "version=${VERSION}" >> "$GITHUB_OUTPUT"
+
+          {
+            echo "body<<EOF"
+            echo "### 📖 قارئ القرآن - mizouh المتميز (${TAG})"
+            echo ""
+            if [ -n "$CHANGELOG_AR" ]; then
+              echo "**التحديثات (العربية):**"
+              echo "${CHANGELOG_AR}"
+              echo ""
+            fi
+            if [ -n "$CHANGELOG_EN" ]; then
+              echo "**What's New (English):**"
+              echo "${CHANGELOG_EN}"
+              echo ""
+            fi
+            echo "---"
+            echo "#### ⚡ أمر التثبيت السريع (Telnet / SSH):"
+            echo '```sh'
+            echo 'wget -q --no-check-certificate "[https://raw.githubusercontent.com/mizouh1984/quran_mizouh/main/install_quran_mizouh_allinone.sh](https://raw.githubusercontent.com/mizouh1984/quran_mizouh/main/install_quran_mizouh_allinone.sh)" -O - | /bin/sh'
+            echo '```'
+            echo "EOF"
+          } >> "$GITHUB_OUTPUT"
+
+      - name: Check if release tag already exists
+        id: check_tag
+        run: |
+          if git rev-parse "${{ steps.meta.outputs.tag }}" >/dev/null 2>&1; then
+            echo "exists=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "exists=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Create GitHub Release & Upload Assets
+        if: steps.check_tag.outputs.exists == 'false'
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ steps.meta.outputs.tag }}
+          name: "قارئ القرآن - mizouh المتميز ${{ steps.meta.outputs.tag }}"
+          body: ${{ steps.meta.outputs.body }}
+          draft: false
+          prerelease: false
+          files: |
+            enigma2-plugin-extensions-quranmizouh.tar.gz
+            install_quran_mizouh_allinone.sh
