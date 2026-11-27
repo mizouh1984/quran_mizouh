@@ -1,9 +1,10 @@
 # 📖 قارئ القرآن - mizouh المتميز (`v3.0.0`)
 
-[![GitHub release](https://img.shields.io/github/v/release/mizouh1984/quran_mizouh?label=الإصدار&color=2ea44f)](https://github.com/mizouh1984/quran_mizouh/releases)
-[![GitHub downloads](https://img.shields.io/github/downloads/mizouh1984/quran_mizouh/total?label=التحميلات&color=0366d6)](https://github.com/mizouh1984/quran_mizouh/releases)
-[![GitHub last commit](https://img.shields.io/github/last-commit/mizouh1984/quran_mizouh?label=آخر+تحديث&color=informational)](https://github.com/mizouh1984/quran_mizouh/commits/main)
-[![License](https://img.shields.io/badge/Enigma2-Plugin-blueviolet)](#الأنظمة-المدعومة)
+[![GitHub release](https://img.shields.io/github/v/release/mizouh1984/quran_mizouh?label=Version&color=2ea44f)](https://github.com/mizouh1984/quran_mizouh/releases)
+[![GitHub downloads](https://img.shields.io/github/downloads/mizouh1984/quran_mizouh/total?label=Downloads&color=0366d6)](https://github.com/mizouh1984/quran_mizouh/releases)
+[![GitHub last commit](https://img.shields.io/github/last-commit/mizouh1984/quran_mizouh?label=Updated&color=informational)](https://github.com/mizouh1984/quran_mizouh/commits/main)
+[![Enigma2](https://img.shields.io/badge/Enigma2-Plugin-blueviolet)](#الأنظمة-المدعومة)
+
 
 بلوجن احترافي لتلاوة القرآن الكريم وتصفح المصحف الشريف على أجهزة **Enigma2** مع دعم **التحديث التلقائي الجماعي** وتحديث قائمة القراء عن بُعد عبر GitHub.
 
