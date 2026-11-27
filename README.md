@@ -1,35 +1,31 @@
-# 📖 قارئ القرآن - mizouh المتميز (`v3.0.0`)
+# قارئ القرآن - mizouh المتميز (v3.1.0)
 
-[![GitHub release](https://img.shields.io/github/v/release/mizouh1984/quran_mizouh?label=Version&color=2ea44f)](https://github.com/mizouh1984/quran_mizouh/releases)
-[![GitHub downloads](https://img.shields.io/github/downloads/mizouh1984/quran_mizouh/total?label=Downloads&color=0366d6)](https://github.com/mizouh1984/quran_mizouh/releases)
-[![GitHub last commit](https://img.shields.io/github/last-commit/mizouh1984/quran_mizouh?label=Updated&color=informational)](https://github.com/mizouh1984/quran_mizouh/commits/main)
-[![Enigma2](https://img.shields.io/badge/Enigma2-Plugin-blueviolet)](#الأنظمة-المدعومة)
+بلوجن احترافي للقرآن الكريم لأجهزة **Enigma2** (OpenATV / OpenPLi / OpenBH / Egami / Pure2 / VTi) مع **4 سكينات FullHD مختلفة** ودعم **التحديث التلقائي الجماعي عبر GitHub**.
 
+## رقم الإصدار الحالي: `v3.1.0`
 
-بلوجن احترافي لتلاوة القرآن الكريم وتصفح المصحف الشريف على أجهزة **Enigma2** مع دعم **التحديث التلقائي الجماعي** وتحديث قائمة القراء عن بُعد عبر GitHub.
-
----
-
-## ✨ أبرز المميزات
-
-* **تلاوة متصلة لـ 31 قارئاً:** روايتا **حفص عن عاصم** (بما فيهم الشيخ أحمد بن علي العجمي) و**ورش عن نافع**.
-* **المصحف الشريف (604 صفحة):** عرض صفحات المصحف بدقة واضحة بدون تظليل مع تقليب تلقائي متزامن مع التلاوة.
-* **وضع الاستماع الصوتي فقط:** إظهار أو إخفاء المصحف بالزر الأصفر.
-* **التفسير والبحث والتحميل:** التفسير الميسر، الجلالين، البغوي، الترجمات (الإنجليزية والفرنسية)، البحث المتقدم، والتحميل للاستماع بدون إنترنت.
-* **تحديث تلقائي عن بُعد:** إشعار وتحميل التحديثات الجديدة من GitHub مباشرة عند فتح البلوجن.
+### أبرز المميزات والتحسينات
+- تلاوة متصلة بدون انقطاع لـ **31 قارئاً** بروايتي **حفص عن عاصم** (بما فيهم الشيخ **أحمد بن علي العجمي**) و**ورش عن نافع** (التبديل الفوري بالزر الأزرق).
+- تقليب فوري ودقيق لصفحات المصحف الشريف الحقيقية (604 صفحة) مع التحميل المسبق في الخلفية وبدون أي تظليل مزعج.
+- تحكم كامل بالتشغيل: الزر الأخضر للإيقاف المؤقت والاستمرار من نفس الثانية، والزر الأحمر للإيقاف الكلي.
+- اضغط زر **MENU** في الريموت لتبديل **4 سكينات مختلفة** (الزمردي الذهبي، الأزرق الملكي، الكلاسيكي الدافئ، الأسود الفاحم OLED) وإجراء **التحديث المباشر من GitHub**.
 
 ---
 
-## 🖥️ الأنظمة المدعومة
-
-متوافق مع صور Enigma2 الشائعة على معالجات ARM وMIPS (مثل Vu+ وDreambox وNovaler وغيرها):
-* OpenATV / OpenPLi / OpenBH / EGAMI / Pure2 / VTi
-
----
-
-## ⚡ التثبيت السريع بسطر واحد (Telnet / SSH)
-
-نفّذ الأمر التالي مباشرة عبر Telnet أو SSH على الرسيفر:
+## أمر التثبيت بسطر واحد للزبائن (Telnet / SSH)
 
 ```sh
-wget -q --no-check-certificate "[https://raw.githubusercontent.com/mizouh1984/quran_mizouh/main/install_quran_mizouh_allinone.sh](https://raw.githubusercontent.com/mizouh1984/quran_mizouh/main/install_quran_mizouh_allinone.sh)" -O - | /bin/sh
+wget -q --no-check-certificate "https://raw.githubusercontent.com/mizouh1984/quran_mizouh/main/install_quran_mizouh_allinone.sh" -O - | /bin/sh
+```
+
+---
+
+## كيف تدفع تحديثاً جديداً لجميع الزبائن دفعة واحدة؟
+
+1. افتح مستودعك هذا على GitHub (`mizouh1984/quran_mizouh`).
+2. ارفع الملفات المحدّثة برقم إصدار أعلى (مثلاً من `3.1.0` إلى `3.1.1`):
+   - `version.json`
+   - `enigma2-plugin-extensions-quranmizouh.tar.gz`
+   - `reciters_feed.json`
+   - `install_quran_mizouh_allinone.sh`
+3. بمجرد فتح البلوجن أو الضغط على **MENU ← الأصفر (تحديث من GitHub)**، سيتحدّث البلوجن تلقائياً لدى جميع الزبائن دفعة واحدة!

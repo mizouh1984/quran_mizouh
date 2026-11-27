@@ -1,0 +1,12 @@
+{
+  "plugin": "QuranMizouh",
+  "name": "قارئ القرآن - mizouh المتميز",
+  "version": "3.1.0",
+  "release_date": "2026-11-27",
+  "force_auto_update": false,
+  "changelog_ar": "الإصدار 3.1.0: تسريع تقليب صفحات المصحف بالتوقيت الدقيق والتحميل المسبق، إصلاح الإيقاف المؤقت والاستمرار بالزر الأخضر، إصلاح تبديل حفص وورش بالزر الأزرق، وإضافة 4 سكينات مختلفة والتحديث المباشر داخل زر MENU.",
+  "changelog_en": "v3.0.0: Added Sheikh Ahmad bin Ali Al-Ajmy, unobstructed clean Mushaf pages, and GitHub OTA mass auto-updates.",
+  "package_url": "https://raw.githubusercontent.com/mizouh1984/quran_mizouh/main/enigma2-plugin-extensions-quranmizouh.tar.gz",
+  "installer_url": "https://raw.githubusercontent.com/mizouh1984/quran_mizouh/main/install_quran_mizouh_allinone.sh",
+  "reciters_feed_url": "https://raw.githubusercontent.com/mizouh1984/quran_mizouh/main/reciters_feed.json"
+}
